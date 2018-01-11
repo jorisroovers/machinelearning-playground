@@ -42,12 +42,16 @@ int main(void)
     y[i] = 2.0f;
   }
 
-  // copy the values from the host to the GPU
+  // Copy the values from the host to the GPU
   cudaMemcpy(d_x, x, N * sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(d_y, y, N * sizeof(float), cudaMemcpyHostToDevice);
 
   // Perform SAXPY on 1M elements
   // Note that triple angular brackets, that's specific to CUDA
+  // The triple angular brackets take 2 arguments: 1) number of blocks 2) number of threads per block
+  // Since the size of our input vector can vary (it's size is N), we need to calculate how many blocks we should use
+  // if we're using 256 threads. That number is N/256, but we do N+255/256 to make sure the result >=1
+  // (integer division rounds down).
   saxpy<<<(N + 255) / 256, 256>>>(N, 2.0f, d_x, d_y);
 
   // We stored the result in Y on the device, copy it back to the host
