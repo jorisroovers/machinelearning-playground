@@ -1,1 +1,1 @@
-print "This is my script"
+print("This is my script")
