@@ -1,0 +1,13 @@
+[project]
+name = "langchain-app"
+version = "0.1.0"
+description = "A simple langchain app in Python with a chatGPT-like web interface using uv for project and dependency management and VueJS for the front-end UI"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "langchain",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
